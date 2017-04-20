@@ -18,10 +18,10 @@ const TodoApp = React.createClass({
           text: 'Program'
         }, {
           id: 3,
-          text: 'Fuck Bitches'
+          text: 'Eat Lunch'
         }, {
           id: 4,
-          text: 'Get Money'
+          text: 'Drank'
         }
       ]
     };
