@@ -107,7 +107,7 @@
 
 	$(document).foundation();
 
-	__webpack_require__(230);
+	__webpack_require__(232);
 
 	ReactDOM.render(React.createElement(TodoApp, null), document.getElementById('app'));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
@@ -25472,14 +25472,35 @@
 
 	var React = __webpack_require__(8);
 
+	var TodoList = __webpack_require__(230);
+
 	var TodoApp = React.createClass({
 	  displayName: 'TodoApp',
 
+	  getInitialState: function getInitialState() {
+	    return {
+	      todos: [{
+	        id: 1,
+	        text: 'Walk dog'
+	      }, {
+	        id: 2,
+	        text: 'Program'
+	      }, {
+	        id: 3,
+	        text: 'Fuck Bitches'
+	      }, {
+	        id: 4,
+	        text: 'Get Money'
+	      }]
+	    };
+	  },
 	  render: function render() {
+	    var todos = this.state.todos;
+
 	    return React.createElement(
 	      'div',
 	      null,
-	      'TodoApp.jsx'
+	      React.createElement(TodoList, { todos: todos })
 	    );
 	  }
 	});
@@ -25490,13 +25511,74 @@
 /* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var React = __webpack_require__(8);
+
+	var Todo = __webpack_require__(231);
+
+	var TodoList = React.createClass({
+	  displayName: 'TodoList',
+
+	  render: function render() {
+	    var todos = this.props.todos;
+
+	    var renderTodos = function renderTodos() {
+	      return todos.map(function (todo) {
+	        return React.createElement(Todo, _extends({ key: todo.id }, todo));
+	      });
+	    };
+	    return React.createElement(
+	      'div',
+	      null,
+	      renderTodos()
+	    );
+	  }
+	});
+
+	module.exports = TodoList;
+
+/***/ }),
+/* 231 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(8);
+
+	var Todo = React.createClass({
+	  displayName: 'Todo',
+
+	  render: function render() {
+	    var _props = this.props,
+	        text = _props.text,
+	        id = _props.id;
+
+	    return React.createElement(
+	      'div',
+	      null,
+	      id,
+	      '. ',
+	      text
+	    );
+	  }
+	});
+
+	module.exports = Todo;
+
+/***/ }),
+/* 232 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(231);
+	var content = __webpack_require__(233);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(233)(content, {});
+	var update = __webpack_require__(235)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -25513,10 +25595,10 @@
 	}
 
 /***/ }),
-/* 231 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(232)();
+	exports = module.exports = __webpack_require__(234)();
 	// imports
 
 
@@ -25527,7 +25609,7 @@
 
 
 /***/ }),
-/* 232 */
+/* 234 */
 /***/ (function(module, exports) {
 
 	/*
@@ -25583,7 +25665,7 @@
 
 
 /***/ }),
-/* 233 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*
