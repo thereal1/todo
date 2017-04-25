@@ -15,6 +15,7 @@ describe('Reducers', () => {
       expect(res).toEqual(expectedAction.searchText);
     });
   });
+
   describe('showCompletedReducer', () => {
     it('should change the showCompletedStatus', () => {
       let expectedAction = {
@@ -23,6 +24,37 @@ describe('Reducers', () => {
       let res = reducers.showCompletedReducer(df(false), df(expectedAction));
 
       expect(res).toBe(true);
+    });
+  });
+
+  describe('todosReducer', () => {
+    it('should add new todo', () => {
+      let action = {
+        type: 'ADD_TODO',
+        text: 'Walk dog'
+      };
+      let res = reducers.todosReducer(df([]), df(action));
+
+      expect(res.length).toEqual(1);
+      expect(res[0].text).toBe(action.text);
+    });
+
+    it('should toggle todo', () => {
+      let todos = [{
+        id: '123',
+        text: 'Eat',
+        completed: true,
+        createdAt: 12,
+        completedAt: 322
+      }];
+      let action = {
+        type: 'TOGGLE_TODO',
+        id: '123'
+      };
+      let res = reducers.todosReducer(df(todos), df(action));
+
+      expect(res[0].completed).toEqual(false);
+      expect(res[0].completedAt).toEqual(undefined);
     });
   });
 });
