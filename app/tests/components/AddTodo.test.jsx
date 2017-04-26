@@ -4,7 +4,8 @@ const expect = require('expect');
 const $ = require('jQuery');
 const TestUtils = require('react-addons-test-utils');
 
-const {AddTodo} = require('AddTodo');
+// const {AddTodo} = require('AddTodo');
+import {AddTodo} from 'AddTodo';
 
 describe('AddTodo', () => {
   it('should exist', () => {
