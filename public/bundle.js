@@ -26862,14 +26862,22 @@
 
 	'use strict';
 
+	var _TodoList = __webpack_require__(413);
+
+	var _TodoList2 = _interopRequireDefault(_TodoList);
+
+	var _AddTodo = __webpack_require__(416);
+
+	var _AddTodo2 = _interopRequireDefault(_AddTodo);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 	var React = __webpack_require__(8);
 	var uuid = __webpack_require__(253);
 	var moment = __webpack_require__(313);
 
-	var TodoList = __webpack_require__(413);
-	var AddTodo = __webpack_require__(416);
 	var TodoSearch = __webpack_require__(417);
 	var TodoAPI = __webpack_require__(418);
 
@@ -26928,8 +26936,8 @@
 	            'div',
 	            { className: 'container' },
 	            React.createElement(TodoSearch, { onSearch: this.handleOnSearch }),
-	            React.createElement(TodoList, null),
-	            React.createElement(AddTodo, { addTodo: this.handleAddTodo })
+	            React.createElement(_TodoList2.default, null),
+	            React.createElement(_AddTodo2.default, { addTodo: this.handleAddTodo })
 	          )
 	        )
 	      )
@@ -48433,16 +48441,25 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.TodoList = undefined;
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _Todo = __webpack_require__(414);
+
+	var _Todo2 = _interopRequireDefault(_Todo);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var React = __webpack_require__(8);
 
 	var _require = __webpack_require__(166),
 	    connect = _require.connect;
 
-	var Todo = __webpack_require__(414);
-
-	var TodoList = React.createClass({
+	var TodoList = exports.TodoList = React.createClass({
 	  displayName: 'TodoList',
 
 	  render: function render() {
@@ -48457,7 +48474,7 @@
 	        );
 	      }
 	      return todos.map(function (todo) {
-	        return React.createElement(Todo, _extends({ key: todo.id }, todo));
+	        return React.createElement(_Todo2.default, _extends({ key: todo.id }, todo));
 	      });
 	    };
 	    return React.createElement(
@@ -48468,7 +48485,7 @@
 	  }
 	});
 
-	module.exports = connect(function (state) {
+	exports.default = connect(function (state) {
 	  return {
 	    todos: state.todos // here you make a prop called todos
 	  };
@@ -48480,6 +48497,9 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	var React = __webpack_require__(8);
 
 	var _require = __webpack_require__(166),
@@ -48489,7 +48509,7 @@
 
 	var actions = __webpack_require__(415);
 
-	var Todo = React.createClass({
+	var Todo = exports.Todo = React.createClass({
 	  displayName: 'Todo',
 
 	  render: function render() {
@@ -48539,7 +48559,7 @@
 	  }
 	});
 
-	module.exports = connect()(Todo);
+	exports.default = connect()(Todo);
 
 /***/ }),
 /* 415 */
@@ -48583,17 +48603,27 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	var React = __webpack_require__(8);
 
-	var AddTodo = React.createClass({
+	var _require = __webpack_require__(166),
+	    connect = _require.connect;
+
+	var actions = __webpack_require__(415);
+
+	var AddTodo = exports.AddTodo = React.createClass({
 	  displayName: 'AddTodo',
 
 	  onFormSubmit: function onFormSubmit(e) {
 	    e.preventDefault();
+	    var dispatch = this.props.dispatch;
+
 	    var newTodoText = this.refs.newTodoText.value;
 	    if (newTodoText.length > 0) {
 	      this.refs.newTodoText.value = '';
-	      this.props.addTodo(newTodoText);
+	      dispatch(actions.addTodo(newTodoText));
 	    } else {
 	      this.refs.newTodoText.focus();
 	    }
@@ -48616,7 +48646,7 @@
 	  }
 	});
 
-	module.exports = AddTodo;
+	exports.default = connect()(AddTodo);
 
 /***/ }),
 /* 417 */
@@ -48725,13 +48755,15 @@
 	    todosReducer = _require.todosReducer;
 
 	var configure = exports.configure = function configure() {
+	  var initialState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
 	  var reducer = redux.combineReducers({
 	    searchText: searchTextReducer,
 	    showCompleted: showCompletedReducer,
 	    todos: todosReducer
 	  });
 
-	  var store = redux.createStore(reducer, redux.compose(window.devToolsExtension ? window.devToolsExtension() : function (f) {
+	  var store = redux.createStore(reducer, initialState, redux.compose(window.devToolsExtension ? window.devToolsExtension() : function (f) {
 	    return f;
 	  }));
 
@@ -48800,6 +48832,8 @@
 	            completed: nextCompleted,
 	            completedAt: nextCompleted ? moment().unix() : undefined
 	          });
+	        } else {
+	          return todo;
 	        }
 	      });
 	    default:
