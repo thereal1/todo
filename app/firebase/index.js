@@ -8,9 +8,8 @@ try {
     storageBucket: process.env.STORAGE_BUCKET
   };
   firebase.initializeApp(config);
-} catch (e) {
+} catch (e) { }
 
-}
-
+export const githubProvider = new firebase.auth.GithubAuthProvider();
 export const firebaseRef = firebase.database().ref();
 export default firebase;
