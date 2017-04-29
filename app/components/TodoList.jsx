@@ -4,8 +4,8 @@ const {connect} = require('react-redux');
 import Todo from 'Todo';
 const TodoAPI = require('TodoAPI');
 
-export const TodoList = React.createClass({
-  render: function () {
+export class TodoList extends React.Component {
+  render () {
     let {todos, showCompleted, searchText} = this.props;
     let renderTodos = () => {
       let filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText)
@@ -26,7 +26,7 @@ export const TodoList = React.createClass({
       </div>
     );
   }
-});
+}
 
 export default connect(
   (state) => {

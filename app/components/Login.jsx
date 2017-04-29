@@ -3,11 +3,11 @@ import * as Redux from 'react-redux';
 
 import * as actions from 'actions';
 
-export const Login = React.createClass ({
+export class Login extends React.Component {
   onLogin () {
     let {dispatch} = this.props;
     dispatch(actions.startLogin());
-  },
+  }
   render () {
     return (
       <div>
@@ -19,13 +19,13 @@ export const Login = React.createClass ({
               <p>
                 Login with Github account below.
               </p>
-              <button className='button' onClick={this.onLogin}>Login With Github</button>
+              <button className='button' onClick={this.onLogin.bind(this)}>Login With Github</button>
             </div>
           </div>
         </div>
       </div>
     )
   }
-});
+}
 
 export default Redux.connect()(Login);
